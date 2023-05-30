@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      - file: changes/v1_irrigation_create_schema_ddl.sql
+      - relativeToChangelogFile: true
+
+  - include:
+      - file: changes/v1_add_crop_table.sql
+      - relativeToChangelogFile: true
+
+  - include:
+      - file: changes/v1_add_crop_table_data.sql
+      - relativeToChangelogFile: true
+
