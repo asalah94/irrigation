@@ -1,27 +1,27 @@
 package gov.irrigation.controller;
 
-import gov.irrigation.dto.PredictionResult;
 import gov.irrigation.model.Plot;
-import gov.irrigation.model.TimeSlot;
+import gov.irrigation.service.AlertService;
 import gov.irrigation.service.PlotService;
 import gov.irrigation.service.SensorService;
-import gov.irrigation.service.TimeSlotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/plots")
 public class PlotController {
     private final PlotService plotService;
-    private final TimeSlotService timeSlotService;
     private final SensorService sensorService;
 
-    public PlotController(PlotService plotService, TimeSlotService timeSlotService, SensorService sensorService) {
+    private final AlertService alertService;
+
+    public PlotController(PlotService plotService, SensorService sensorService, AlertService alertService) {
         this.plotService = plotService;
-        this.timeSlotService = timeSlotService;
         this.sensorService = sensorService;
+        this.alertService = alertService;
     }
 
     /**
@@ -54,25 +54,6 @@ public class PlotController {
         return new ResponseEntity<>(plots, HttpStatus.OK);
     }
 
-    /**
-     * Configure a time slot for a plot of land.
-     * This method associates a time slot with a specific plot of land.
-     */
-    @PostMapping("/{plotId}/timeslots")
-    public ResponseEntity<TimeSlot> configureTimeSlot(@PathVariable Long plotId, @RequestBody TimeSlot timeSlot) {
-        TimeSlot configuredTimeSlot = timeSlotService.configureTimeSlot(plotId, timeSlot);
-        return new ResponseEntity<>(configuredTimeSlot, HttpStatus.CREATED);
-    }
-
-    /**
-     * Update the status of a time slot.
-     * This method updates the status of a specific time slot identified by its ID.
-     */
-    @PutMapping("/timeslots/{timeslotId}/status")
-    public ResponseEntity<TimeSlot> updateTimeSlotStatus(@PathVariable Long timeslotId, @RequestParam String status) {
-        TimeSlot updatedTimeSlot = timeSlotService.updateTimeSlotStatus(timeslotId, status);
-        return new ResponseEntity<>(updatedTimeSlot, HttpStatus.OK);
-    }
 
     /**
      * Retry the sensor device for a plot of land.
@@ -95,6 +76,27 @@ public class PlotController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Send a sensor not available alert for a specific plot.
+     * This method triggers the alert service to send a sensor not available alert for the specified plot.
+     */
+    @PostMapping("/{plotId}/sensor-not-available")
+    public ResponseEntity<Void> sendSensorNotAvailableAlert(@PathVariable Long plotId) {
+        Plot plot = plotService.getPlotById(plotId);
+        alertService.sendSensorNotAvailableAlert(plot);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Send a retry exceeded alert for a specific plot.
+     * This method triggers the alert service to send a retry exceeded alert for the specified plot.
+     */
+    @PostMapping("/{plotId}/retry-exceeded")
+    public ResponseEntity<Void> sendRetryExceededAlert(@PathVariable Long plotId) {
+        Plot plot = plotService.getPlotById(plotId);
+        alertService.sendRetryExceededAlert(plot);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }

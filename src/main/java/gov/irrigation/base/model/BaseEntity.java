@@ -24,13 +24,8 @@ public abstract class BaseEntity<ID extends Serializable>  implements Serializab
 	 */
 	private static final long serialVersionUID = 3855054033844070951L;
 
-	@SequenceGenerator(name = "id_seq",
-			sequenceName = "id_seq",
-			allocationSize = 1, initialValue = 1)
-
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
 	@Id
-	@Schema(description = "The database generated ID", required = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private ID id;
 
 

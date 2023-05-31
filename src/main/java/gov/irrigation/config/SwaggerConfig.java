@@ -9,7 +9,7 @@ public class SwaggerConfig {
 
 	@Bean
 	public GroupedOpenApi operationApi() {
-		String[] packagesToScan = { "gov.saip.usermanagement.controllers" };
+		String[] packagesToScan = { "gov.irrigation.controllers" };
 		return GroupedOpenApi.builder().group("Common APIs")
 				.packagesToScan(packagesToScan).build();
 	}

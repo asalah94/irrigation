@@ -9,12 +9,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "crop")
+@Table(name = "crop" , schema = "irrigation")
 @Setter
 @Getter
 public class Crop extends BaseEntity<Long> {
+
     private String cropType;
-    @Enumerated(EnumType.STRING) // Use an enumeration for recommended slot time
+    @Enumerated(EnumType.STRING)
     private SlotTime recommendedSlotTime;
     private int recommendedWaterAmount;
 
