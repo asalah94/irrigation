@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "259e12c5-6f4c-4c97-a0fc-f14842bb0262",
+		"name": "irrigation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25070251"
+	},
+	"item": [
+		{
+			"name": "add-plot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Plot C\",\r\n    \"area\": 1005959.0,\r\n    \"cropType\": \"yuiuu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-plots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-plot",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Plot Oy\",\r\n        \"area\": 1005959.0,\r\n        \"cropType\": \"Wheat\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-time-slot-status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "Not Active",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/timeslots/2/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"timeslots",
+						"2",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "configure-time-slot-status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"plot\": {\r\n    \"id\": 1,\r\n    \"name\": \"Plot 1\",\r\n    \"area\": 100.0,\r\n    \"cropType\": \"Corn\"\r\n  },\r\n  \"startTime\": \"09:00:00\",\r\n  \"endTime\": \"10:00:00\",\r\n  \"waterAmount\": 20.5,\r\n  \"status\": \"active\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/timeslots/plots/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"timeslots",
+						"plots",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retry-sensor-device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2023-05-25T09:00:00\",\r\n  \"endTime\": \"2023-05-25T10:00:00\",\r\n  \"waterAmount\": 500\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots/1/retry",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots",
+						"1",
+						"retry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "irrigate-plot-of-land",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2023-05-25T09:00:00\",\r\n  \"endTime\": \"2023-05-25T10:00:00\",\r\n  \"waterAmount\": 500\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots/1/irrigate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots",
+						"1",
+						"irrigate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "predict-slots-and-water",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2023-05-25T09:00:00\",\r\n  \"endTime\": \"2023-05-25T10:00:00\",\r\n  \"waterAmount\": 500\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/crops/Crop A/prediction/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"crops",
+						"Crop A",
+						"prediction",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send-sensor-not-available-alert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2023-05-25T09:00:00\",\r\n  \"endTime\": \"2023-05-25T10:00:00\",\r\n  \"waterAmount\": 500\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8086/irrigation/plots/1/irrigate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"irrigation",
+						"plots",
+						"1",
+						"irrigate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send-retry-exceeeded-alert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startTime\": \"2023-05-25T09:00:00\",\r\n  \"endTime\": \"2023-05-25T10:00:00\",\r\n  \"waterAmount\": 500\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/irrigation/plots/1/retry-exceeded",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"irrigation",
+						"plots",
+						"1",
+						"retry-exceeded"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
